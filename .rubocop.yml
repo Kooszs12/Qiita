@@ -1,0 +1,19 @@
+# チェック（チーム開発前提）
+require:
+  - rubocop-minitest
+  - rubocop-packaging
+  - rubocop-performance
+  - rubocop-rails
+
+# 全て
+AllCops:
+# すべてのCopをデフォルトで無効にする
+  Enabled: false 
+# インデントに関する指摘を有効にする
+Layout/IndentationWidth:
+  Enabled: true
+Layout/IndentationConsistency:
+  Enabled: true
+# 全角文字の存在に関する指摘を有効にする
+Style/AsciiComments:
+  Enabled: true
