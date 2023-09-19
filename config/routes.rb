@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   # Webページに表示されるものを制限かける
   devise_for :users,skip: [:passwords], controllers: {
     registrations: "user/registrations",
-    sessions: 'public/sessions'
+    sessions: 'user/sessions'
   }
 
   # 管理者用
@@ -13,5 +13,15 @@ Rails.application.routes.draw do
   devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
     sessions: "admin/sessions"
   }
+
+  # ユーザー側
+  scope module: :user do
+    root "homes#top"
+  end
+
+  # admin側
+  namespace :admin do
+    get "/" => "homes#top"
+  end
 
 end
