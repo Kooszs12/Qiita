@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  devise_for :users
   # 管理者用
   # URL /admin/sign_in ...
   # Webページに表示されるものを制限かける
