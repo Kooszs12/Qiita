@@ -1,3 +1,27 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+
+  # ユーザー用
+  # URL /customers/sign_in ...（URLが自動で変更してくれる）
+  # Webページに表示されるものを制限かける
+  devise_for :users,skip: [:passwords], controllers: {
+    registrations: "user/registrations",
+    sessions: 'user/sessions'
+  }
+
+  # 管理者用
+  # URL /admin/sign_in ...
+  devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
+    sessions: "admin/sessions"
+  }
+
+  # ユーザー側
+  scope module: :user do
+    root "homes#top"
+  end
+
+  # admin側
+  namespace :admin do
+    get "/" => "homes#top"
+  end
+
 end
