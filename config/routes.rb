@@ -14,6 +14,12 @@ Rails.application.routes.draw do
     sessions: "admin/sessions"
   }
 
+  # devise生成したコントローラーに手動でアクションを追加した時は、devise_scopeの中に追記
+  devise_scope :user do
+    # ゲストサインイン
+    post "user/guest_sign_in", to: "user/sessions#guest_sign_in"
+  end
+
   # ユーザー側
   scope module: :user do
     root "homes#top"
