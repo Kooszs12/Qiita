@@ -1,2 +1,8 @@
 <!--ユーザー側Topページ-->
 <h1 class="text-center">user/Top</h1>
+<% if user_signed_in? %>
+  ログイン中
+  <%= link_to 'ろぐあうと', destroy_user_session_path, class: "btn btn-secondary btn-sm btn-block mb-3 sign_in", method: :delete %>
+<% else %>
+  <%= link_to "ゲストログイン（閲覧用）", user_guest_sign_in_path, class: "btn btn-secondary btn-sm btn-block mb-3 sign_in", method: :post %>
+<% end %>

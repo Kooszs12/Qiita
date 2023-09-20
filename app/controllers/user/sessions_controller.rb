@@ -24,4 +24,14 @@ class User::SessionsController < Devise::SessionsController
   # def configure_sign_in_params
   #   devise_parameter_sanitizer.permit(:sign_in, keys: [:attribute])
   # end
+
+  # ゲストサインイン
+  def guest_sign_in
+    # ゲストユーザーを作成
+    user = User.guest
+    # ログイン
+    sign_in user
+    redirect_to root_path, notice: "guestuserでログインしました。"
+  end
+
 end
