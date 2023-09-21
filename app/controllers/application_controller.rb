@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  
+  # アクセス制限
   before_action :configure_permitted_parameters, if: :devise_controller?
 
   protected
