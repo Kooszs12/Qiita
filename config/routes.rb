@@ -23,7 +23,11 @@ Rails.application.routes.draw do
   # ユーザー側
   scope module: :user do
     root "homes#top"
-  end
+    # 退会確認ページ
+    get 'user/confirm_withdraw' => 'user#confirm_withdraw', as: :user_confirm_withdraw
+    # 退会機能
+    patch 'user/withdraw' => 'users#withdraw'
+    end
 
   # admin側
   namespace :admin do
