@@ -25,6 +25,9 @@ class User::SessionsController < Devise::SessionsController
   #   devise_parameter_sanitizer.permit(:sign_in, keys: [:attribute])
   # end
 
+  # ユーザーcreate前にreject_userを呼び出す
+  before_action :reject_user, only: [:create]
+
   # ゲストサインイン
   def guest_sign_in
     # ゲストユーザーを作成
@@ -36,15 +39,19 @@ class User::SessionsController < Devise::SessionsController
 
   protected
 
-  # 退会しているかを判断するメソッド
-  def customer_state
-    ## 【処理内容1】 入力されたemailからアカウントを1件取得
+  # 退会済みのユーザーがログインできないようにする（退会処理とは別）
+  def reject_user
     @user = User.find_by(email: params[:user][:email])
-    ## アカウントを取得できなかった場合、このメソッドを終了する
-    return if !@user
-    ## 【処理内容2】 取得したアカウントのパスワードと入力されたパスワードが一致してるかを判別
-    if @user.valid_password?(params[:user][:password])
-      ## 【処理内容3】
+    # 存在しているかどうか分岐
+    if @user
+      # 退会フラグが退会済みか有効化判断
+      if @user.valid_password?(params[:user][:password]) && (@user.is_deleted == true)
+        flash[:notice] = "退会済みです。再度ご登録をしてご利用ください"
+        redirect_to new_user_registration_path
+      end
+    else
+      # そもそも存在していなかった場合
+      flash[:notice] = "該当するユーザーが見つかりません"
     end
   end
 
