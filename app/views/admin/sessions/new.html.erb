@@ -1,7 +1,9 @@
 <!--adminログインページ-->
 <h2>Log in</h2>
 
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+<%#= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %> <!--変更前-->
+<%= form_with model: @admin, url: admin_session_path do |f| %> <!--変更後-->
+
   <div class="field">
     <%= f.label :email %><br />
     <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
@@ -24,5 +26,5 @@
   </div>
 <% end %>
 
-<%#= render "admins/shared/links" %><!--変更前-->
-<%= render "admin/shared/links" %><!--変更後-->
+<%#= render "admins/shared/links" %> <!--変更前-->
+<%= render "admin/shared/links" %> <!--変更後-->

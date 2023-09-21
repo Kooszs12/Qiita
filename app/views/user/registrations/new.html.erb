@@ -1,9 +1,16 @@
 <!--ユーザーサインアップページ-->
 <h2>Sign up</h2>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+<%#= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>  <!--変更前-->
+<%= form_with model: @user, url: user_registration_path do |f| %> <!--変更後-->
   <%#= render "users/shared/error_messages", resource: resource %> <!--変更前-->
   <%= render "user/shared/error_messages", resource: resource %> <!--変更後-->
+
+  <!--ニックネーム入力フォーム追加-->
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
 
   <div class="field">
     <%= f.label :email %><br />
