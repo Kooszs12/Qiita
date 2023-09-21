@@ -5,6 +5,12 @@
   <%#= render "users/shared/error_messages", resource: resource %> <!--変更前-->
   <%= render "user/shared/error_messages", resource: resource %> <!--変更後-->
 
+  <!--ニックネーム入力フォーム追加-->
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+
   <div class="field">
     <%= f.label :email %><br />
     <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
