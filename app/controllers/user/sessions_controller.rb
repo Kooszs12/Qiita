@@ -34,7 +34,7 @@ class User::SessionsController < Devise::SessionsController
     user = User.guest
     # ログイン
     sign_in user
-    redirect_to root_path, notice: "guestuserでログインしました。"
+    redirect_to root_path, info: "guestuserでログインしました。"
   end
 
   protected
@@ -46,12 +46,12 @@ class User::SessionsController < Devise::SessionsController
     if @user
       # 退会フラグが退会済みか有効化判断
       if @user.valid_password?(params[:user][:password]) && (@user.is_deleted == true)
-        flash[:notice] = "退会済みです。再度ご登録をしてご利用ください"
+        flash[:warning] = "退会済みです。再度ご登録をしてご利用ください"
         redirect_to new_user_registration_path
       end
     else
       # そもそも存在していなかった場合
-      flash[:notice] = "該当するユーザーが見つかりません"
+      flash[:warning] = "該当するユーザーが見つかりません"
     end
   end
 

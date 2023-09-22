@@ -19,7 +19,7 @@ class User::UsersController < ApplicationController
     # 退会した時点でログアウトする
     reset_session
     # 成功メッセージ
-    redirect_to root_path, notice: "ご利用ありがとうございました"
+    redirect_to root_path, info: "ご利用ありがとうございました"
   end
 
 end
