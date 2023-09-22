@@ -1,0 +1,33 @@
+<!-- 管理者側ユーザー一覧ページのコンテナ -->
+<div class="container o-8column">
+  <!--行を示す要素で、内部のコンテンツを行内に配置-->
+  <div class="row">
+    <!-- 左側のコラム (幅: 4カラム) -->
+    <div class="col-md-8">
+      <h2 class="text-center mb-5">会員一覧</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>ユーザー</th>
+            <th>状況</th>
+          </tr>
+        <thead>
+
+        <tbody>
+          <!--ユーザー情報を繰り返し表示-->
+          <% @users.each do |user| %>
+            <tr>
+              <!--ユーザーID-->
+              <td><%= user.id %></td>
+              <!--ユーザーネーム-->
+              <td><%= user.name %></td>
+              <!--退会状況-->
+              <td><%= user.is_deleted ? '退会' : '有効' %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

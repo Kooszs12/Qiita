@@ -34,6 +34,7 @@ Rails.application.routes.draw do
   # admin側
   namespace :admin do
     get "/" => "homes#top"
+    resources :users, only: [:index]
   end
 
 end
