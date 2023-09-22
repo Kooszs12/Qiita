@@ -17,3 +17,8 @@ import "../stylesheets/application";
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
+
+// フラッシュメッセージ（一定時間で消す）
+$(function(){  //メソッド定義
+  $('.js-flash').fadeOut(5000);  //5秒かけて消えていく
+});
