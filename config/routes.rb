@@ -23,11 +23,18 @@ Rails.application.routes.draw do
   # ユーザー側
   scope module: :user do
     root "homes#top"
-  end
+    # マイページ
+    get 'users/mypage/:id' => 'users#show', as: :users_mypage
+    # 退会確認ページ
+    get 'users/confirm_withdraw' => 'users#confirm_withdraw', as: :users_confirm_withdraw
+    # 退会機能
+    patch 'users/withdraw' => 'users#withdraw'
+    end
 
   # admin側
   namespace :admin do
     get "/" => "homes#top"
+    resources :users, only: [:index]
   end
 
 end

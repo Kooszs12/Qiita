@@ -2,8 +2,11 @@ class ApplicationController < ActionController::Base
   # アクセス制限
   before_action :configure_permitted_parameters, if: :devise_controller?
 
+  # フラッシュメッセージのbootstrap
+  add_flash_types :secondary, :success, :danger, :warning, :info, :light, :dark
+
   protected
-  
+
   # サインアップ時にnameも許可
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:sign_up, keys: [:name])
