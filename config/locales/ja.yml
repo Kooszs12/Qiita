@@ -1,10 +1,14 @@
 ja:
   # enum
   enums:
-    order:
-      payment_method:
-        credit_card: "クレジットカード"
-        transfer: "銀行振込"
+    place:
+      category:
+        shrine: "神社"
+        temple: "お寺"
+      pet:
+        not_clea: "不明"
+        ok: "OK"
+        ng: "NG"
   activerecord:
     errors:
       messages:

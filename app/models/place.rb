@@ -25,6 +25,6 @@ class Place < ApplicationRecord
   # 寺社（shrine: 神社　temple: お寺）
   enum category: { shrine: 0, temple: 1 }
   # ペット入場（ok: OK, ng: NG, not_clea: 不明）
-  enum pet_status: { not_clea: 0, ok: 1, ng: 2 }
+  enum pet: { not_clea: 0, ok: 1, ng: 2 }
 
 end
