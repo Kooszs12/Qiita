@@ -19,7 +19,7 @@ module Qiita
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
 
-    # デフォルト言語を日本語に
+    # デフォルト言語を日本語に変更
     config.i18n.default_locale = :ja
 
   end
