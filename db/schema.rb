@@ -67,6 +67,7 @@ ActiveRecord::Schema.define(version: 2023_09_23_051719) do
     t.string "address", null: false
     t.string "postcode", null: false
     t.string "phone_number"
+    # あとでgotテーブル
     t.string "got"
     t.string "sect"
     t.integer "fee", default: 0

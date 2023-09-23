@@ -6,9 +6,17 @@
     <div class="col-md-8">
       <%= form_with model: @place, url: admin_places_path do |f| %>
 
+      <!--HTMLのpreタグ。このタグで囲んであげることでデータが見やすくなる-->
+      <!--<pre>-->
+        <!--データがどのような形で入っているか確認できる-->
+        <%#= Area.all.map{|a| [a.id, a.name]}.inspect %>
+      <!--</pre>-->
+
         <!--寺社選択ラジオボタン-->
         <div class="form-group">
+          <!--左辺がbに入る。この場合はfirst。enumのverとkeyのような考え方-->
           <%= f.collection_radio_buttons :category, Place.categories_i18n, :first, :last do |b| %>
+            <!--ラジオボタンを作成して、文字も表示させクリックに反応するようにしている-->
             <%= b.label(class: "mr-2") { b.radio_button(class: "mr-1") + b.text } %>
           <% end %>
         </div>
@@ -30,13 +38,15 @@
         <div class="form-group">
           <%= f.label :地方 %><font color="red">*必須</font>
           <!--f.selectを使用するときは機能とHTML要素に{ }をつけてあげないとブートストラップが反映-->
-          <%= f.select :area_id, Area.all, { prompt: "地方を選択してください" }, { class: "form-control" } %>
+          <%#= f.select :area_id, Area.all.map{|a| [a.name, a.id]}, { prompt: "地方を選択してください" }, { class: "form-control" } %>
+          <!--上記のコードとやっていることは一緒。ただしこちらのコードを使用すると初期値が決められる-->
+          <%= f.collection_select :area_id, Area.all, :id, :name, { include_blank: "地方を選択してください" }, { class: "form-control"} %>
           </div>
 
         <!--都道府県選択セレクトボックス（地方選択によって中身が変わる）-->
         <div class="form-group">
           <%= f.label :都道府県 %><font color="red">*必須</font>
-          <%= f.select :prefecture_id, Prefecture.all, { prompt: "都道府県を選択してください" }, { class: "form-control" } %>
+          <%= f.collection_select :prefecture_id, Prefecture.all, :id, :name, { include_blank: "都道府県を選択してください" }, { class: "form-control"} %>
         </div>
 
         <!--住所カラム（市区町村から）-->
@@ -67,15 +77,15 @@
 
         <!--拝観料フォーム-->
         <div class="form-group">
-          <%= f.label :拝観料 %>
+          <%= f.label :fee, "拝観料" %>
           <%= f.text_field :fee, placeholder: "大人料金", class: "form-control" %>
         </div>
 
-        <!--神様カラム-->
-        <div class="form-group">
-          <%= f.label :御祭神 %>
-          <%= f.text_field :got, placeholder: "主祭神を記入してください", class: "form-control" %>
-        </div>
+        <!--神様カラムあとでテーブル作成-->
+        <!--<div class="form-group">-->
+          <%#= f.label :御祭神 %>
+          <%#= f.text_field :got, placeholder: "主祭神を記入してください", class: "form-control" %>
+        <!--</div>-->
 
         <!--宗派カラム-->
         <div class="form-group">
@@ -86,6 +96,9 @@
         <!--ペット選択セレクトボックス-->
         <div class="form-group">
           <%= f.label :ペット %><font color="red">*必須</font>
+          <!--_i18nで日本語化。
+          invertでverとkeyを反転させている。
+          見た目上では数値ではなく文字列として表示されているが見た目上の話なので日本化と混じった考え方をしないように注意-->
           <%= f.select :pet, Place.pets_i18n.invert, { prompt: "選択してください" }, { class: "form-control" } %>
         </div>
 

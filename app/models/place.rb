@@ -6,10 +6,18 @@ class Place < ApplicationRecord
   validates :category, presence: true
   # 寺社名バリデーション
   validates :name, presence: true, length: { maximum: 30 }
-  # 郵便番号ハイフンなしバリデーション（７桁）
-  validates :postcode, { with: /\A\d{7}\z/ }
+  # 郵便番号ハイフンなしバリデーション（７桁：半角数字のみ）
+  validates :postcode, format: { with: /\A[0-9]{7}\z/ }
   # 住所バリデーション
   validates :address, presence: true, length: { maximum: 80 }
+  # 電話番号：空でも許可して、フォームに入力された場合は半角数字のみ許可するバリデーション
+  validates :phone_number, allow_blank: true, format: { with: /\A[0-9]+\z/ }
+  # 拝観料のバリデーション
+  # 0〜9,999,999までの数字範囲指定
+  validates :fee, numericality: { greater_than_or_equal_to: 0, less_than_or_equal_to: 9_999_999 },
+                  # フォームに入力する数字は半角数字のみ
+                  format: { with: /\A[0-9]+\z/ }
+  validates :sect, length: { maximum: 30 }
   # ペット状況ラジオボタンバリデーション
   validates :pet, presence: true
 
@@ -20,7 +28,7 @@ class Place < ApplicationRecord
   belongs_to :user
   # adminとのアソシエーション
   belongs_to :admin
-  
+
   #enum設定
   # 寺社（shrine: 神社　temple: お寺）
   enum category: { shrine: 0, temple: 1 }
