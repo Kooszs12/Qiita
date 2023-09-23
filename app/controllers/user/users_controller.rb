@@ -15,7 +15,9 @@ class User::UsersController < ApplicationController
     # ログインしているユーザー本人のデータ
     @user = current_user
     # is_deletedカラムをtrueに変更することにより削除フラグを立てる
+    # "#{}で文字列の中に変数を入れられる"
     @user.update(is_deleted: true, name: "退会済み")
+    # byebug
     # 退会した時点でログアウトする
     reset_session
     # 成功メッセージ

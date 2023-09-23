@@ -4,6 +4,10 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  #バリデーション設定
+  # ユーザーネームは10文字で同名はNG
+  validates :name, presence: true, length: { maximum: 8 }
+
   # 定数にメールアドレスを格納
   GUEST_USER_EMAIL = "guest@example.com"
 
