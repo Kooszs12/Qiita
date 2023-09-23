@@ -1,3 +1,4 @@
+# ユーザーモデル
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
@@ -5,8 +6,15 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   #バリデーション設定
-  # ユーザーネームは10文字で同名はNG
-  validates :name, presence: true, length: { maximum: 8 }
+  # ユーザーネームは30文字で同名はNG(レイアウトの問題ならばCSSで適用した方がいい)
+  validates :name, presence: true, length: { maximum: 30 }
+
+  # アソシエーション
+  # 寺社に対するアソシエーション（ユーザーモデルが１の１：N)
+  has_many :places, dependent: :destroy
+
+  #画像カラム
+  has_one_attached :image
 
   # 定数にメールアドレスを格納
   GUEST_USER_EMAIL = "guest@example.com"
