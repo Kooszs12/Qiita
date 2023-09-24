@@ -14,16 +14,13 @@
         <!--insert：文字列の特定した位置に指定した文字や文字列を挿入するメソッド-->
         <li><strong>郵便番号：〒</strong><%= @place.postcode.insert(3, "-") %></li>
         <li><strong>住所：</strong><%= @place.prefecture.name %><%= @place.address %></li>
-        <!--データが空でない場合-->
+        <!--unless：条件分岐がelseしかない場合に使用。blank?：データが存在するかどうか判断-->
         <% unless @place.phone_number.blank? %>
-        <%# if @place.phone_number.blank? %>
-
-        <%# else %>
-          <!--電話番号-->
+          <!--存在した場合：電話番号-->
           <li><strong>電話番号：☎</strong>︎ <%= @place.phone_number.insert(4, '-').insert(9, '-') %></li>
         <% end %>
         <!--データが空でない場合-->
-        <% if @place.start_time.present? && @place.end_time.present? %>
+        <% unless @place.start_time.blank? && @place.end_time.blank? %>
         <!--営業時間：開始時間〜終了時間-->
           <li><strong>営業時間：</strong> <%= @place.start_time.strftime('%H:%M') %>〜<%= @place.end_time.strftime('%H:%M') %></li>
         <% end %>

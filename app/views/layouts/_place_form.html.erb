@@ -11,6 +11,20 @@
   <%#= Area.all.map{|a| [a.id, a.name]}.inspect %>
 <!--</pre>-->
 
+<!--画像フォーム-->
+  <div class="row">
+    <div class="col-12 w-100">
+    <!--画像が存在するかどうか判断-->
+    <% if place.image.attached? %>
+      <%= image_tag place.image, style: "width: 50;", id: 'imagePreview', class: "img-fluid mb-3" %>
+    <% else %><!--存在しなかった場合-->
+      <%= image_tag "place_no_image.png", style: "width: 50;", id: 'imagePreview', class: "img-fluid mb-3" %>
+    <% end %>
+    </div>
+  </div>
+  <!--画像フォーム-->
+  <%= f.file_field :image, id: "imageField" %>
+
 <h2 class="text-center mb-5"><%= "寺社#{submit}" %></h2>
 
 <!--寺社選択ラジオボタン-->

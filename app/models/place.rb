@@ -31,4 +31,13 @@ class Place < ApplicationRecord
   # ペット入場（ok: OK, ng: NG, not_clea: 不明）
   enum pet: { not_clea: 0, ok: 1, ng: 2 }
 
+  #imageカラム
+  has_one_attached :image
+
+  # No_imageが存在するかどうか判断するメソッド
+  def get_place_image
+    # 存在しなかった場合no_image.pngを使用
+    (image.attached?) ? image : 'place_no_image.png'
+  end
+
 end
