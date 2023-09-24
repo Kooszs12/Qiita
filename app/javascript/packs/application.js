@@ -30,14 +30,16 @@ $(document).on('turbolinks:load', function() {
     // console.log(e);
     // 選択されたファイルを取得（ver=変数宣言）
     // 画像選択したら発火（０＝１枚）
+    // e.target.files.lengs(for文３７〜４２)（画像複数投稿
     var file = e.target.files[0];
     // FileReaderオブジェクトを作成
     // FileReader()：JavaScriptのプログラム　new:classをオブジェクトに作成
     var reader = new FileReader();
     // 読み込み完了時に処理（file＝＞f）
     reader.onload = (f) => {
-      // プレビュー画像のsrc属性を選択した画像ファイルのDataURLに設定
-       $('#imagePreview').attr('src', f.target.result)
+      // プレビュー画像のsrc属性を選択した画像ファイルのDataURLに設定=>viewへ
+      // IDが一つしかないから工夫してあげる（画像複数投稿）
+      $('#imagePreview').attr('src', f.target.result)
     }
     // 画像ファイルをDataURL形式で読み込む
     reader.readAsDataURL(file);

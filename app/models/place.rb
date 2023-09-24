@@ -32,7 +32,9 @@ class Place < ApplicationRecord
   enum pet: { not_clea: 0, ok: 1, ng: 2 }
 
   #imageカラム
-  has_one_attached :image
+  # has_one_attached :image 単数投稿
+  # 複数投稿
+  has_many_attached :image
 
   # No_imageが存在するかどうか判断するメソッド
   def get_place_image
