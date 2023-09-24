@@ -4,8 +4,4 @@ class Admin < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  # アソシエーション
-  # 寺社に対するアソシエーション（adminモデルが１の１：N)
-  # has_many :places, dependent: :destroy
-
 end

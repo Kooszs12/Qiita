@@ -9,10 +9,6 @@ class User < ApplicationRecord
   # ユーザーネームは30文字で同名はNG(レイアウトの問題ならばCSSで適用した方がいい)
   validates :name, presence: true, length: { maximum: 30 }
 
-  # アソシエーション
-  # 寺社に対するアソシエーション（ユーザーモデルが１の１：N)
-  # has_many :places, dependent: :destroy
-
   #画像カラム
   has_one_attached :image
 

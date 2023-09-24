@@ -24,10 +24,6 @@ class Place < ApplicationRecord
   #アソシエーション
   # 都道府県とのアソシエーション（寺社モデルがNの１：N）
   belongs_to :prefecture
-  # ユーザーとのアソシエーション
-  # belongs_to :user
-  # adminとのアソシエーション
-  # belongs_to :admin
 
   #enum設定
   # 寺社（shrine: 神社　temple: お寺）

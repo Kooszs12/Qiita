@@ -13,7 +13,7 @@ class Admin::PlacesController < ApplicationController
     # 保存が成功した場合
     if @place.save
       # フラッシュメッセージを表示して寺社詳細ページへ遷移
-      redirect_to admin_places_path(@place), info: "投稿されました"
+      redirect_to admin_place_path(@place), info: "投稿されました"
     # それ以外の場合（失敗した場合）
     else
       # 寺社新規投稿ページへ遷移
