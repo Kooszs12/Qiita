@@ -1,0 +1,109 @@
+<!--寺社投稿・編集部分テンプレート-->
+<%= form_with model: place, url: target_path do |f| %>
+
+<!--バリデーション呼び出し-->
+<%= render "layouts/validates", model: f.object %>
+
+<!--HTMLのpreタグ。このタグで囲んであげることでデータが見やすくなる-->
+<!--<pre>-->
+  <!--データがどのような形で入っているか確認できる-->
+  <%#= Area.all.map{|a| [a.id, a.name]}.inspect %>
+<!--</pre>-->
+
+<h2 class="text-center mb-5">寺社新規投稿</h2>
+
+<!--寺社選択ラジオボタン-->
+<div class="form-group">
+  <!--左辺がbに入る。この場合はfirst。enumのverとkeyのような考え方-->
+  <%= f.collection_radio_buttons :category, Place.categories_i18n, :first, :last do |b| %>
+    <!--ラジオボタンを作成して、文字も表示させクリックに反応するようにしている-->
+    <%= b.label(class: "mr-2") { b.radio_button(class: "mr-1") + b.text } %>
+  <% end %>
+</div>
+
+<!--寺社名フォーム-->
+<div class="form-group">
+  <%= f.label :寺社名 %><font color="red">*必須</font>
+  <!--placeholder: "寺社名"入力フォームのヒント-->
+  <%= f.text_field :name, placeholder: "寺社名（必須）", class: "form-control" %>
+</div>
+
+<!--郵便番号フォーム-->
+<div class="form-group">
+  <%= f.label :郵便番号 %><font color="red">*必須</font>
+  <%= f.text_field :postcode, placeholder: "ハイフンなし（必須）", class: "form-control" %>
+</div>
+
+<!--地方選択セレクトボックス-->
+<div class="form-group">
+  <%= f.label :地方 %><font color="red">*必須</font>
+  <!--f.selectを使用するときは機能とHTML要素に{ }をつけてあげないとブートストラップが反映-->
+  <%#= f.select :area_id, Area.all.map{|a| [a.name, a.id]}, { prompt: "地方を選択してください" }, { class: "form-control" } %>
+  <!--上記のコードとやっていることは一緒。フォームヘルパーメソッドの一つなのでこちらの方がよい-->
+  <%= f.collection_select :area_id, Area.all, :id, :name, { include_blank: "地方を選択してください" }, { class: "form-control"} %>
+  </div>
+
+<!--都道府県選択セレクトボックス（地方選択によって中身が変わる）-->
+<div class="form-group">
+  <%= f.label :都道府県 %><font color="red">*必須</font>
+  <%= f.collection_select :prefecture_id, Prefecture.all, :id, :name, { include_blank: "都道府県を選択してください" }, { class: "form-control"} %>
+</div>
+
+<!--住所カラム（市区町村から）-->
+<div class="form-group">
+  <%= f.label :市区町村 %><font color="red">*必須</font>
+  <%= f.text_field :address, placeholder: "市区町村から記入してください", class: "form-control" %>
+</div>
+
+<!--電話番号カラム-->
+<div class="form-group">
+  <%= f.label :電話番号 %>
+  <%= f.text_field :phone_number, placeholder: "ハイフンなし", class: "form-control" %>
+</div>
+
+<!--営業時間フォーム-->
+<div class="form-group">
+  <div class="row">
+    <div class="col-md-5">
+      <%= f.label :start_time, '営業開始' %>
+      <%= f.time_field :start_time, class: "form-control" %>
+    </div>
+    <div class="col-md-5">
+      <%= f.label :end_time, '営業修了' %>
+      <%= f.time_field :end_time, class: "form-control" %>
+    </div>
+  </div>
+</div>
+
+<!--拝観料フォーム-->
+<div class="form-group">
+  <%= f.label :fee, "拝観料" %>
+  <%= f.text_field :fee, placeholder: "大人料金", class: "form-control" %>
+</div>
+
+<!--神様カラムあとでテーブル作成-->
+<!--<div class="form-group">-->
+  <%#= f.label :御祭神 %>
+  <%#= f.text_field :got, placeholder: "主祭神を記入してください", class: "form-control" %>
+<!--</div>-->
+
+<!--宗派カラム-->
+<div class="form-group">
+  <%= f.label :宗派 %>
+  <%= f.text_field :sect, placeholder: "宗派", class: "form-control" %>
+</div>
+
+<!--ペット選択セレクトボックス-->
+<div class="form-group">
+  <%= f.label :ペット %><font color="red">*必須</font>
+  <!--_i18nで日本語化。
+  invertでverとkeyを反転させている。
+  見た目上では数値ではなく文字列として表示されているが見た目上の話なので日本化と混じった考え方をしないように注意-->
+  <%= f.select :pet, Place.pets_i18n.invert, { prompt: "選択してください" }, { class: "form-control" } %>
+</div>
+
+<div>
+  <%= f.submit submit, class: "btn btn-info btn-block mb-5" %>
+</div>
+
+<% end %>
