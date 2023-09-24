@@ -26,6 +26,8 @@ class Admin::PlacesController < ApplicationController
   end
 
   def show
+    # 特定の寺社データ格納
+    @place = Place.find(params[:id])
   end
 
   def edit
