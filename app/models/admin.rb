@@ -6,6 +6,6 @@ class Admin < ApplicationRecord
 
   # アソシエーション
   # 寺社に対するアソシエーション（adminモデルが１の１：N)
-  has_many :places, dependent: :destroy
+  # has_many :places, dependent: :destroy
 
 end

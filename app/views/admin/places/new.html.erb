@@ -6,6 +6,8 @@
     <div class="col-md-8">
       <%= form_with model: @place, url: admin_places_path do |f| %>
 
+      <!--バリデーション呼び出し-->
+      <%= render "layouts/validates", model: f.object %>
       <!--HTMLのpreタグ。このタグで囲んであげることでデータが見やすくなる-->
       <!--<pre>-->
         <!--データがどのような形で入っているか確認できる-->

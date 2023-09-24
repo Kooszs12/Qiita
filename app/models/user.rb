@@ -11,7 +11,7 @@ class User < ApplicationRecord
 
   # アソシエーション
   # 寺社に対するアソシエーション（ユーザーモデルが１の１：N)
-  has_many :places, dependent: :destroy
+  # has_many :places, dependent: :destroy
 
   #画像カラム
   has_one_attached :image
