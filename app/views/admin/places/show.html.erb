@@ -16,6 +16,9 @@
         <li><strong>住所：</strong><%= @place.prefecture.name %><%= @place.address %></li>
         <!--データが空でない場合-->
         <% unless @place.phone_number.blank? %>
+        <%# if @place.phone_number.blank? %>
+
+        <%# else %>
           <!--電話番号-->
           <li><strong>電話番号：☎</strong>︎ <%= @place.phone_number.insert(4, '-').insert(9, '-') %></li>
         <% end %>

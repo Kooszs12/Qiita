@@ -31,9 +31,22 @@ class Admin::PlacesController < ApplicationController
   end
 
   def edit
+    # 特定の寺社のデータを格納
+    @place = Place.find(params[:id])
   end
 
+  # 更新機能
   def update
+    # 特定の寺社データを格納
+    @place = Place.find(params[:id])
+    # 更新に成功したら
+    if @place.update(place_params)
+      # 更新された寺社詳細ページへ遷移
+      redirect_to admin_place_path(@place), info: "編集されました"
+    else
+      # 失敗した寺社編集ページへ遷移
+      render :edit
+    end
   end
 
   def destroy
@@ -58,6 +71,7 @@ class Admin::PlacesController < ApplicationController
     :fee,
     :start_time,
     :end_time
+    # 前の結果に対して、付け加える
     ).merge(
         # ユーザーIDが存在するかどうか判断。存在しなかった場合nil
         user_id: user_signed_in? ? current_user.id : nil,
