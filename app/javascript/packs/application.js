@@ -30,7 +30,7 @@ $(document).on('turbolinks:load', function() {
     // console.log(e);
     // 選択されたファイルを取得（ver=変数宣言）
     // 画像選択したら発火（０＝１枚）
-    // e.target.files.lengs(for文３７〜４２)（画像複数投稿
+    // e.target.files.lengs(for文３７〜４２)（画像複数投稿）
     var file = e.target.files[0];
     // FileReaderオブジェクトを作成
     // FileReader()：JavaScriptのプログラム　new:classをオブジェクトに作成

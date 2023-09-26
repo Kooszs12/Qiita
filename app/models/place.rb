@@ -21,6 +21,8 @@ class Place < ApplicationRecord
   # ペット状況ラジオボタンバリデーション
   validates :pet, presence: true
 
+  validates :images, limit: { min: 0, max: 3 }
+
   #アソシエーション
   # 都道府県とのアソシエーション（寺社モデルがNの１：N）
   belongs_to :prefecture
@@ -31,15 +33,15 @@ class Place < ApplicationRecord
   # ペット入場（ok: OK, ng: NG, not_clea: 不明）
   enum pet: { not_clea: 0, ok: 1, ng: 2 }
 
-  #imageカラム
+  # imageカラム
   # has_one_attached :image 単数投稿
   # 複数投稿
-  has_many_attached :image
+  has_many_attached :images
 
   # No_imageが存在するかどうか判断するメソッド
   def get_place_image
     # 存在しなかった場合no_image.pngを使用
-    (image.attached?) ? image : 'place_no_image.png'
+    (images.attached?) ? images : 'place_no_image.png'
   end
 
 end

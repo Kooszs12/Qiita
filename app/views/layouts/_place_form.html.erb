@@ -1,5 +1,12 @@
 <!--寺社投稿・編集部分テンプレート-->
 
+<!--都道府県のレコードよりさきに地方のレコードを取り出している：includes-->
+<% prefectures = Prefecture.includes(:area) %>
+
+<!--地方IDデータが存在していた場合、都道府県セレクトボックスの中身を対応したものにして、存在しなかった場合は空で返す-->
+<!--ここで新規フォームと編集フォームのIf文（ place.prefecture_id ?）追加したことによって両方のページで共通フォームを使用可能になっている-->
+<% target_prefectures = place.prefecture_id ? prefectures.where('areas.id': place.prefecture.area_id).map{|o| [o.name, o.id] } : [] %>
+
 <%= form_with model: place, url: target_path do |f| %>
 
 <!--バリデーション呼び出し-->
@@ -17,8 +24,10 @@
 <div class="row">
   <div class="col-12 w-100">
   <!--画像が存在するかどうか判断-->
-  <% if place.image.attached? %>
-    <%= image_tag place.image, style: "width: 50;", id: 'imagePreview', class: "img-fluid mb-3" %>
+  <% if place.images.attached? %>
+    <%  place.images.each do |image| %>
+      <%= image_tag image, alt: 'Place Image', class: 'img-fluid w-100' %>
+    <% end %>
   <% else %><!--存在しなかった場合-->
     <%= image_tag "place_no_image.png", style: "width: 50;", id: 'imagePreview', class: "img-fluid mb-3" %>
   <% end %>
@@ -26,10 +35,11 @@
 </div>
 <!--画像複数投稿フォーム（multiple: true：複数投稿を可能にしている）-->
 <%= f.file_field :images, multiple: true, id: "imageField" %>
+<!--単数画像投稿の場合のコード-->
 <%#= f.file_field :image, id: "imageField" %>
 
 <!--寺社選択ラジオボタン-->
-<div class="form-group">
+<div class="form-group mt-5">
   <!--左辺がbに入る。この場合はfirst。enumのverとkeyのような考え方-->
   <%= f.collection_radio_buttons :category, Place.categories_i18n, :first, :last do |b| %>
     <!--ラジオボタンを作成して、文字も表示させクリックに反応するようにしている-->
@@ -56,13 +66,13 @@
   <!--f.selectを使用するときは機能とHTML要素に{ }をつけてあげないとブートストラップが反映-->
   <%#= f.select :area_id, Area.all.map{|a| [a.name, a.id]}, { prompt: "地方を選択してください" }, { class: "form-control" } %>
   <!--上記のコードとやっていることは一緒。フォームヘルパーメソッドの一つなのでこちらの方がよい-->
-  <%= f.collection_select :area_id, Area.all, :id, :name, { include_blank: "地方を選択してください" }, { class: "form-control"} %>
+  <%= f.collection_select :area_id, Area.all, :id, :name, { include_blank: "地方を選択してください" }, { class: "form-control", id: "area-select" } %>
   </div>
 
 <!--都道府県選択セレクトボックス（地方選択によって中身が変わる）-->
 <div class="form-group">
   <%= f.label :都道府県 %><font color="red">*必須</font>
-  <%= f.collection_select :prefecture_id, Prefecture.all, :id, :name, { include_blank: "都道府県を選択してください" }, { class: "form-control"} %>
+  <%= f.collection_select :prefecture_id, Prefecture.all, :id, :name, { include_blank: "都道府県を選択してください" }, { class: "form-control", id: "prefecture-select" } %>
 </div>
 
 <!--住所カラム（市区町村から）-->

@@ -70,7 +70,7 @@ class Admin::PlacesController < ApplicationController
     :fee,
     :start_time,
     :end_time,
-    image: []
+    images: []
     # 前の結果に対して、付け加える
     ).merge(
         # ユーザーIDが存在するかどうか判断。存在しなかった場合nil
