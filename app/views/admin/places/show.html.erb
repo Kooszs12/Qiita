@@ -7,14 +7,10 @@
       <h2><%= @place.name %></h2>
 
       <div class="text-center">
-        <% if @place.images.attached? %>
-          <%  @place.images.each do |image| %>
-            <%= image_tag image, alt: 'Place Image', class: 'img-fluid w-100' %>
-          <% end %>
-        <% else %><!--存在しなかった場合-->
-          <%= image_tag "place_no_image.png", style: "width: 50;", id: 'imagePreview', class: "img-fluid mb-3" %>
+        <!--画像を繰り返し表示-->
+        <% @place.get_place_image.each do |img| %>
+         <%= image_tag img, alt: 'Place Image', class: 'img-fluid w-100' %>
         <% end %>
-        <%#= image_tag @place.get_place_image, alt: 'Place Image', class: 'img-fluid w-100' %>
       </div>
 
       <ul>

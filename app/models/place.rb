@@ -20,7 +20,7 @@ class Place < ApplicationRecord
   validates :sect, length: { maximum: 30 }
   # ペット状況ラジオボタンバリデーション
   validates :pet, presence: true
-
+  # 画像枚数のバリデーション
   validates :images, limit: { min: 0, max: 3 }
 
   #アソシエーション
@@ -38,10 +38,11 @@ class Place < ApplicationRecord
   # 複数投稿
   has_many_attached :images
 
-  # No_imageが存在するかどうか判断するメソッド
+  # 画像が存在するかどうか判断するメソッド
   def get_place_image
     # 存在しなかった場合no_image.pngを使用
-    (images.attached?) ? images : 'place_no_image.png'
+    # []配列にすることでeachが使用できるように設定
+    (images.attached?) ? images : ['place_no_image.png']
   end
 
 end
