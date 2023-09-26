@@ -9,6 +9,7 @@
       <div class="text-center">
         <!--画像を繰り返し表示-->
         <% @place.get_place_image.each do |img| %>
+        <!--alt: 画像が表示されなかった場合表示される文字-->
          <%= image_tag img, alt: 'Place Image', class: 'img-fluid w-100' %>
         <% end %>
       </div>

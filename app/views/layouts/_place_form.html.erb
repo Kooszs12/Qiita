@@ -1,4 +1,6 @@
 <!--寺社投稿・編集部分テンプレート-->
+<!--JavaScript反映-->
+<%= javascript_pack_tag 'place_form' %>
 
 <!--都道府県のレコードよりさきに地方のレコードを取り出している：includes-->
 <% prefectures = Prefecture.includes(:area) %>
@@ -64,15 +66,22 @@
 <div class="form-group">
   <%= f.label :地方 %><font color="red">*必須</font>
   <!--f.selectを使用するときは機能とHTML要素に{ }をつけてあげないとブートストラップが反映-->
+  <!--map：値になるものと表示を設定してハッシュに渡す。-->
   <%#= f.select :area_id, Area.all.map{|a| [a.name, a.id]}, { prompt: "地方を選択してください" }, { class: "form-control" } %>
   <!--上記のコードとやっていることは一緒。フォームヘルパーメソッドの一つなのでこちらの方がよい-->
-  <%= f.collection_select :area_id, Area.all, :id, :name, { include_blank: "地方を選択してください" }, { class: "form-control", id: "area-select" } %>
+  <!--collection_select：モデルのデータを全て取得して、どれをkeyにしてvarにするか設定している-->
+  <%= f.collection_select :area_id, Area.all, :id, :name,
+    { include_blank: "地方を選択してください" },
+    { class: "form-control", id: "area-select" } %>
   </div>
 
 <!--都道府県選択セレクトボックス（地方選択によって中身が変わる）-->
 <div class="form-group">
   <%= f.label :都道府県 %><font color="red">*必須</font>
-  <%= f.collection_select :prefecture_id, Prefecture.all, :id, :name, { include_blank: "都道府県を選択してください" }, { class: "form-control", id: "prefecture-select" } %>
+  <%= f.collection_select :prefecture_id, Prefecture.all, :id, :name,
+    { include_blank: "都道府県を選択してください" },
+    { class: "form-control", id: "prefecture-select",
+       data: { json: (prefectures.map{|o| { id: o.id, name: o.name, area_id: o.area.id } }).to_json } } %>
 </div>
 
 <!--住所カラム（市区町村から）-->
