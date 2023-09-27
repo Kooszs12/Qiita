@@ -78,7 +78,7 @@
 <!--都道府県選択セレクトボックス（地方選択によって中身が変わる）-->
 <div class="form-group">
   <%= f.label :都道府県 %><font color="red">*必須</font>
-  <%= f.collection_select :prefecture_id, Prefecture.all, :id, :name,
+  <%= f.collection_select :prefecture_id, target_prefectures, :last, :first,
     { include_blank: "都道府県を選択してください" },
     { class: "form-control", id: "prefecture-select",
        data: { json: (prefectures.map{|o| { id: o.id, name: o.name, area_id: o.area.id } }).to_json } } %>
