@@ -35,6 +35,8 @@ Rails.application.routes.draw do
   namespace :admin do
     get "/" => "homes#top"
     resources :users, only: [:index]
+    # 寺社
+    resources :places, only: [:new, :create, :index, :show, :edit, :update, :destroy]
   end
 
 end

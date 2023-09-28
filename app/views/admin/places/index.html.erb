@@ -1,0 +1,54 @@
+<!-- 管理者側寺社投稿ページのコンテナ -->
+<div class="container">
+  <!--行を示す要素で、内部のコンテンツを行内に配置-->
+  <div class="row">
+    <!-- 左側のコラム (幅: 5カラム) -->
+    <div class="col-md-12">
+      <h2 class="text-center">admin/place/index</h2>
+      <!--寺社一覧を繰り返し表示-->
+      <% @places.each do |place| %>
+        <div class="card mb-5">
+          <div class="card-header">
+            <h5 class="card-text text-center">
+              <%= link_to admin_place_path(place) do %>
+                <%= place.name %>
+              <% end %>
+            </h5>
+
+            <!--地方名/都道府県名表示-->
+            <div class="card-text">
+              <!--地方名を押すとその地方だけの一覧を表示-->
+              <%= place.prefecture.area.name %>/
+              <!--都道府県を押すとその都道府県だけの一覧を表示-->
+              <%= place.prefecture.name %>
+            </div>
+
+            <!--郵便番号＆住所表示-->
+            <div class="card-text">
+              <div class="row">
+                <!--郵便番号-->
+                <div class="col-md-3">
+                  〒<%= place.postcode.insert(3, "-") %>
+                </div>
+                <!--都道府県名＋住所-->
+                <div class="col-md-9 text-right">
+                  <%= place.prefecture.name %><%= place.address %>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card-body">
+            画像表示
+          </div>
+
+          <div class="card-footer text-right text-muted">
+            <div>投稿日：<%= place.created_at.strftime("%Y年%m月%d日") %></div>
+            <div>更新日：<%= place.updated_at.strftime("%Y年%m月%d日") %></div>
+          </div>
+
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

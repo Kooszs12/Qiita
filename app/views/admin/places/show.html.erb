@@ -1,0 +1,41 @@
+<!-- 管理者側寺寺社詳細ページのコンテナ-->
+<div class="container o-8column">
+  <!--行を示す要素で、内部のコンテンツを行内に配置-->
+  <div class="row">
+    <div class="col-md-12">
+
+      <h2><%= @place.name %></h2>
+
+      <div class="text-center">
+        <!--画像を繰り返し表示-->
+        <% @place.get_place_image.each do |img| %>
+        <!--alt: 画像が表示されなかった場合表示される文字-->
+         <%= image_tag img, alt: 'Place Image', class: 'img-fluid w-100' %>
+        <% end %>
+      </div>
+
+      <ul>
+        <!--insert：文字列の特定した位置に指定した文字や文字列を挿入するメソッド-->
+        <li><strong>郵便番号：〒</strong><%= @place.postcode.insert(3, "-") %></li>
+        <li><strong>住所：</strong><%= @place.prefecture.name %><%= @place.address %></li>
+        <!--unless：条件分岐がelseしかない場合に使用。blank?：データが存在するかどうか判断-->
+        <% unless @place.phone_number.blank? %>
+          <!--存在した場合：電話番号-->
+          <li><strong>電話番号：☎</strong>︎ <%= @place.phone_number.insert(4, '-').insert(9, '-') %></li>
+        <% end %>
+        <!--データが空でない場合-->
+        <% unless @place.start_time.blank? && @place.end_time.blank? %>
+        <!--営業時間：開始時間〜終了時間-->
+          <li><strong>営業時間：</strong> <%= @place.start_time.strftime('%H:%M') %>〜<%= @place.end_time.strftime('%H:%M') %></li>
+        <% end %>
+        <!--拝観料-->
+        <li><strong>拝観料：¥</strong> <%= @place.fee %></li>
+        <!--ペット状況-->
+        <li><strong>ぺっと状況：</strong> <%= @place.pet_i18n %></li>
+      </ul>
+
+      <%= link_to "編集", edit_admin_place_path(@place), class: "btn btn-sm btn-info w-25 mt-1 c-btn" %>
+
+    </div>
+  </div>
+</div>

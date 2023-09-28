@@ -70,3 +70,5 @@ gem 'enum_help'
 gem 'kaminari', '~> 1.2.1'
 # 検索機能
 gem 'ransack'
+
+gem 'active_storage_validations'
